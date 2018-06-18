@@ -1,0 +1,108 @@
+<html lang="en">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
+    .row.content {
+      height: 450px
+    }
+
+    /* Set gray background color and 100% height */
+
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <h1>
+        <i>PLEASE SELECT YOUR CHARACTER</i>
+      </h1>
+    </div>
+    <div class="col content align-items-center">
+      <br>
+      <form action="{{ url_for('selected_images') }} " method="post">
+        <select class="form-control" multiple name="imagesSelection" size="10">
+          {% for item in uploaded_files %}
+          <option>{{ item }}</option>
+          {% endfor %}
+        </select>
+        <button class="col btn btn-success" type="submit">LET'S ROCK</button>
+      </form>
+    </div>
+
+    <table class="table" border="1">
+      <tr>
+        <th>Uploaded image</th>
+        <th>Processed image</th>
+      </tr>
+      {% for image in table_content %}
+      <tr>
+        <td>
+          <a href={{ image[1] }}>{{ image[0] }}</a>
+        </td>
+        {% if image[2] == "" %}
+        <td>Not processed.</td>
+        {% else %}
+        <td>
+          <a href={{ image[3] }}>{{ image[2] }}</a>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+
+
+  <footer class="container-fluid text-center">
+    <p>Footer Text</p>
+  </footer>
+
+</body>
+
+</html>
